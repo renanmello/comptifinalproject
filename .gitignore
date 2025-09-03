@@ -34,3 +34,4 @@ build/
 
 ## env files ##
 */src/resources/.env
+.env
