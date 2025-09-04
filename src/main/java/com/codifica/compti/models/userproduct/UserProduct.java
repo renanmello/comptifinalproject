@@ -1,6 +1,7 @@
-package com.codifica.compti.userproduct;
-import com.codifica.compti.productcategory.ProductCategory;
-import com.codifica.compti.user.User;
+package com.codifica.compti.models.userproduct;
+
+import com.codifica.compti.models.productcategory.ProductCategory;
+import com.codifica.compti.models.user.User;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;

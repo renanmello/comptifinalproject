@@ -1,8 +1,7 @@
-package com.codifica.compti.user;
+package com.codifica.compti.models.user;
 
-
-import com.codifica.compti.negotiation.Negotiation;
-import com.codifica.compti.userproduct.UserProduct;
+import com.codifica.compti.models.negotiation.Negotiation;
+import com.codifica.compti.models.userproduct.UserProduct;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.codifica.compti.negotiation;
-import com.codifica.compti.userproduct.UserProduct;
-import com.codifica.compti.user.User;
+package com.codifica.compti.models.negotiation;
+import com.codifica.compti.models.user.User;
+import com.codifica.compti.models.userproduct.UserProduct;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
