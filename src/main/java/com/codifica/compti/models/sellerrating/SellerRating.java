@@ -21,4 +21,6 @@ public class SellerRating {
     private Double totalRating; // Average rating of the seller
 
     private Integer reviewCount; // Total number of reviews received
+
+    private String review;
 }

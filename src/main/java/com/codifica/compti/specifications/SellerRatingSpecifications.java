@@ -16,4 +16,8 @@ public class SellerRatingSpecifications {
     public static Specification<SellerRating> hasMaxRating(Double maxRating) {
         return (root, query, cb) -> cb.lessThanOrEqualTo(root.get("totalRating"), maxRating);
     }
+
+    public static Specification<SellerRating> containsReview(String review) {
+        return (root, query, cb) -> cb.like(cb.lower(root.get("review")), "%" + review.toLowerCase() + "%");
+    }
 }

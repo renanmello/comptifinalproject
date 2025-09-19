@@ -19,9 +19,10 @@ public class SellerRatingController {
             @RequestParam(required = false) Long userId,
             @RequestParam(required = false) Double minRating,
             @RequestParam(required = false) Double maxRating,
+            @RequestParam(required = false) String review,
             Pageable pageable
     ) {
-        return sellerRatingService.findSellerRatings(userId, minRating, maxRating, pageable);
+        return sellerRatingService.findSellerRatings(userId, minRating, maxRating, review, pageable);
     }
 
     @GetMapping("/{id}")

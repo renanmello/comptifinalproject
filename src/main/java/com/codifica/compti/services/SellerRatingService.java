@@ -18,7 +18,7 @@ public class SellerRatingService {
     private final SellerRatingRepository sellerRatingRepository;
 
     // 🔍 Buscar avaliações com filtros dinâmicos
-    public Page<SellerRating> findSellerRatings(Long userId, Double minRating, Double maxRating, Pageable pageable) {
+    public Page<SellerRating> findSellerRatings(Long userId, Double minRating, Double maxRating, String review, Pageable pageable) {
         Specification<SellerRating> spec = (root, query, cb) -> cb.conjunction();
 
         if (userId != null) {
@@ -29,6 +29,9 @@ public class SellerRatingService {
         }
         if (maxRating != null) {
             spec = spec.and(SellerRatingSpecifications.hasMaxRating(maxRating));
+        }
+        if (review != null && !review.isBlank()) {
+            spec = spec.and(SellerRatingSpecifications.containsReview(review));
         }
 
         return sellerRatingRepository.findAll(spec, pageable);
@@ -51,6 +54,7 @@ public class SellerRatingService {
         sellerRating.setUser(updated.getUser());
         sellerRating.setTotalRating(updated.getTotalRating());
         sellerRating.setReviewCount(updated.getReviewCount());
+        sellerRating.setReview(updated.getReview());
         return sellerRatingRepository.save(sellerRating);
     }
 
