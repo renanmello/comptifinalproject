@@ -1,7 +1,6 @@
 package com.codifica.compti.models.user;
 
 import com.codifica.compti.models.negotiation.Negotiation;
-import com.codifica.compti.models.profile.Profile;
 import com.codifica.compti.models.userproduct.UserProduct;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -47,6 +46,4 @@ public class User {
     @JsonManagedReference
     private List<Negotiation> negotiationsAsBuyer;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Profile profile;
 }
