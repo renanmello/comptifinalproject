@@ -1,22 +1,32 @@
-package com.codifica.compti.controllers;
+package com.codifica.compti.models.user;
 
-import com.codifica.compti.models.user.User;
-import com.codifica.compti.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controlador REST para operações relacionadas à entidade {@link User}.
+ * <p>
+ * Este controlador fornece endpoints para criação e atualização de usuários.
+ * </p>
+ *
+ * @version 2.0
+ * @since 2024
+ */
 @RestController
 @RequestMapping("/user")
-
 public class UserController {
+
+
 
     private final UserService userService;
 
-    // Construtor explícito
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
+
 
     /**
      * Cria um novo usuário.

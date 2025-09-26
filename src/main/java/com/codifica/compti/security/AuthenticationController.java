@@ -1,22 +1,31 @@
 package com.codifica.compti.security;
 
 
-import jakarta.validation.Valid;
 import com.codifica.compti.models.user.User;
-import com.codifica.compti.repositories.UserRepository;
+import com.codifica.compti.models.user.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+
+/**
+ * Controlador REST para autenticação e registro de usuários.
+ * <p>
+ * Este controlador fornece endpoints para login e registro de novos usuários,
+ * incluindo a geração de tokens JWT para autenticação.
+ * </p>
+ *
+ * @version 2.0
+ * @since 2024
+ */
 @RestController
 @RequestMapping("auth")
 public class AuthenticationController {
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -63,3 +72,5 @@ public class AuthenticationController {
         return ResponseEntity.ok(new RegisterResponseDTO(newUser.getId(), newUser.getEmail()));
     }
 }
+
+

@@ -3,32 +3,39 @@ package com.codifica.compti.models.user;
 import lombok.Getter;
 
 /**
- * Enumeration representing the different user roles in the system.
+ * Enumeração que representa os diferentes papéis (roles) dos usuários no sistema.
  * <p>
- * Each role defines a specific level of access and available functionalities for the user.
+ * Cada papel define um nível específico de acesso e funcionalidades disponíveis para o usuário.
  * </p>
  *
- * @version 1.0
- * @since 2025
+ * @version 2.0
+ * @since 2024
  */
 @Getter
 public enum UserRole {
-
     /**
-     * Admin role, with full permissions on the system.
+     * Papel de administrador, com permissões completas no sistema.
      */
     ADMIN("admin"),
     /**
-     * individual role, com permissões completas no sistema.
+     * Papel de vítima, com acesso limitado a funcionalidades específicas.
      */
     INDIVIDUAL("individual"),
     /**
-     * Company role, with permissions to manage company resources.
+     * Papel de empresa, com permissões para gerenciar recursos de empresa.
      */
     BUSINESS("business");
+    /**
+     * Papel de órgão, com permissões específicas para gerenciar operações governamentais ou regulatórias.
+     */
 
     private String role;
 
+    /**
+     * Construtor para associar uma string a cada papel.
+     *
+     * @param role o texto que representa o papel
+     */
     UserRole(String role) {
         this.role = role;
     }

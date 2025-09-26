@@ -1,11 +1,14 @@
 package com.codifica.compti.models.userproduct;
 
+
 import com.codifica.compti.models.productcategory.ProductCategory;
 import com.codifica.compti.models.user.User;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+
+
 
 @Entity
 @Table(name = "UserProducts")
