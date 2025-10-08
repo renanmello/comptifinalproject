@@ -1,5 +1,7 @@
 package com.codifica.compti.security;
 
+import com.codifica.compti.models.user.User;
+
 /**
  * Data Transfer Object (DTO) para representar a resposta de registro de um usuário.
  * <p>
@@ -10,7 +12,7 @@ package com.codifica.compti.security;
  * @param id    o identificador único do usuário registrado
  * @param login o nome de login do usuário registrado
  * @version 2.0
- * @since 2024
+ * @since 2025
  */
 public record RegisterResponseDTO(Long id, String login) {
 }
