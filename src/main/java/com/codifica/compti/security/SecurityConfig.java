@@ -60,8 +60,8 @@ public class SecurityConfig {
                     logger.info("Permitindo acesso aos endpoints do Swagger");
                     // Configura endpoints públicos
                     authorize
-                            .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                             .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
                             .requestMatchers("/favicon.ico").permitAll()
                             // Configura permissões específicas para endpoints da aplicação

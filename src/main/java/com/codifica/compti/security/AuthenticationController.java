@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2024
  */
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/api/auth")
 public class AuthenticationController {
 
     @Autowired
@@ -46,9 +46,9 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = authenticationManager.authenticate(usernamePassword);
         User user = (User) userRepository.findByEmail(data.login());
-        System.out.println(auth.getPrincipal());
-        System.out.println(auth.getDetails());
-        System.out.println(auth.isAuthenticated());
+        //System.out.println(auth.getPrincipal());
+        //System.out.println(auth.getDetails());
+        //System.out.println(auth.isAuthenticated());
 
         // Gera um token JWT para o usuário autenticado
         var token = tokenService.generateToken((User) auth.getPrincipal());
@@ -67,6 +67,13 @@ public class AuthenticationController {
         if (this.userRepository.findByEmail(data.login()) != null) return ResponseEntity.badRequest().build();
         String crippass = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.login(), crippass, data.role());// Login já existe
+        newUser.setName(data.name());
+        newUser.setWhatsapp(data.whatsapp());
+        newUser.setDocument(data.document());
+        newUser.setZipCode(data.zip_code());
+        newUser.setAddressComplement(data.address_complement());
+        newUser.setPhoto(data.photo());
+        newUser.setSocialMediaLink(data.social_media_link());
 
         this.userRepository.save(newUser);
         return ResponseEntity.ok(new RegisterResponseDTO(newUser.getId(), newUser.getEmail()));

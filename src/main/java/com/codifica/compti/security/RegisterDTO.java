@@ -15,5 +15,6 @@ import com.codifica.compti.models.user.UserRole;
  * @version 2.0
  * @since 2024
  */
-public record RegisterDTO(String login, String password, UserRole role) {
+public record RegisterDTO(String login, String password, UserRole role, String name, String whatsapp, String social_media_link,
+                          String zip_code, String address_complement, String document,String photo) {
 }
