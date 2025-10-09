@@ -3,6 +3,7 @@ package com.codifica.compti.security;
 
 import com.codifica.compti.models.user.User;
 import com.codifica.compti.models.user.UserRepository;
+import com.codifica.compti.models.user.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,8 @@ public class AuthenticationController {
 
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private UserServiceImpl userServiceImpl;
 
     /**
      * Realiza a autenticação de um usuário e retorna um token JWT se as credenciais forem válidas.
@@ -77,6 +80,12 @@ public class AuthenticationController {
 
         this.userRepository.save(newUser);
         return ResponseEntity.ok(new RegisterResponseDTO(newUser.getId(), newUser.getEmail()));
+    }
+
+    @PutMapping("update/{user_id}")
+    public ResponseEntity<User> update(@RequestBody User user, @PathVariable("user_id") Long user_id) {
+       User updatedUser = userServiceImpl.update(user, user_id);
+        return ResponseEntity.ok(updatedUser);
     }
 }
 

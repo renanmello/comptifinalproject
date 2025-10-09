@@ -65,8 +65,8 @@ public class SecurityConfig {
                             .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
                             .requestMatchers("/favicon.ico").permitAll()
                             // Configura permissões específicas para endpoints da aplicação
-                            .requestMatchers(HttpMethod.POST, "/vitima").hasRole("ADMIN")
-                            .requestMatchers(HttpMethod.PUT, "/vitima").hasAnyRole("ADMIN", "VITIMA")
+                            .requestMatchers(HttpMethod.PUT, "/api/auth/update").hasAnyRole("INDIVIDUAL", "BUSINNES")
+                            .requestMatchers(HttpMethod.DELETE, "/api/auth/delete").hasAnyRole("INDIVIDUAL", "BUSINNES")
                             .requestMatchers(HttpMethod.GET, "/vitima").hasAnyRole("ADMIN", "VITIMA")
                             .requestMatchers(HttpMethod.GET, "/vitima/all").hasAnyRole("ADMIN", "EMPRESA")
                             .requestMatchers(HttpMethod.POST, "/curso/create").hasAnyRole("ADMIN", "VITIMA")

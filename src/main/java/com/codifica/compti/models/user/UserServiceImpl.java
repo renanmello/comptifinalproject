@@ -69,6 +69,12 @@ public class UserServiceImpl implements UserService {
         User edit_user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
         edit_user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(edit_user);
+        //dar upgrade em tudo menos no password
+    }
+
+    @Override
+    public User delete(User user, Long id) {
+        return null;
     }
 
 
