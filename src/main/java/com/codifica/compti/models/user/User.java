@@ -19,6 +19,7 @@ import java.util.List;
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class User implements UserDetails {
     /**
      * Identificador único do usuário.
@@ -131,6 +132,8 @@ public class User implements UserDetails {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+
 
     private String photo; // Opcional
 
