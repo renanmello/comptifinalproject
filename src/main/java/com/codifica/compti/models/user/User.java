@@ -1,4 +1,5 @@
 package com.codifica.compti.models.user;
+import com.codifica.compti.models.favorite.Favorites;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,6 +49,10 @@ public class User implements UserDetails {
     private String zipCode;
     private String addressComplement;
     private String document; // CPF ou CNPJ
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Favorites> favorites;
 
     public Long getId() {
         return id;

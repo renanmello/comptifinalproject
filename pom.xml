@@ -8,7 +8,7 @@
         <version>3.3.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>ufpa</groupId>
+    <groupId>compti</groupId>
     <artifactId>compti</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>libertapp</name>
