@@ -1,6 +1,7 @@
 package com.codifica.compti.models.userproduct;
 
 
+import com.codifica.compti.models.favorite.Favorites;
 import com.codifica.compti.models.productcategory.ProductCategory;
 import com.codifica.compti.models.user.User;
 import jakarta.persistence.*;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 
 
 @Entity
@@ -28,6 +30,9 @@ public class UserProduct {
     @JoinColumn(name = "category_id")
     @JsonBackReference
     private ProductCategory category;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Favorites> favorites;
 
     private String name;
     private Boolean type; // true = Product, false = Service
