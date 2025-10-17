@@ -87,6 +87,12 @@ public class AuthenticationController {
        User updatedUser = userServiceImpl.update(user, user_id);
         return ResponseEntity.ok(updatedUser);
     }
+
+    @DeleteMapping("delete/{user_id}")
+    public ResponseEntity<User> delete(@PathVariable("user_id") Long id) {
+        userServiceImpl.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }
 
 

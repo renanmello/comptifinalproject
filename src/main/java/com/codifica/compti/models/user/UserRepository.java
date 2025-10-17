@@ -22,6 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     UserDetails findByEmail(String email);
 
+    User findById(long id);
     /**
      * Salva um usuário no banco de dados.
      *

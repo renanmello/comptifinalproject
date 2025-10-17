@@ -9,4 +9,5 @@ public interface ProductCategoryService {
 
     List<ProductCategoryDTO> getAllCategoriesAsDTO();
 
+
 }
