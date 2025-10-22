@@ -46,21 +46,81 @@ public class UserProductServiceImpl implements UserProductService {
     }
 
     @Override
-    public UserProduct update(UserProduct userProduct) {
-        // TODO: Implementar atualização
-        return null;
+    public UserProduct update(Long productId, UserProduct userProduct, Long userId) {
+        // Busca o usuário
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        // Valida se é BUSINESS
+        if (user.getRole() != UserRole.BUSINESS) {
+            throw new IllegalArgumentException(
+                    "Apenas usuários do tipo BUSINESS (CNPJ) podem atualizar produtos."
+            );
+        }
+
+        // Busca o produto existente
+        UserProduct existingProduct = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        // Verifica se o produto pertence ao usuário
+        if (!existingProduct.getUser().getId().equals(userId)) {
+            throw new IllegalArgumentException(
+                    "Você não tem permissão para atualizar este produto."
+            );
+        }
+
+        // Atualiza os campos
+        existingProduct.setName(userProduct.getName());
+        existingProduct.setType(userProduct.getType());
+        existingProduct.setPrice(userProduct.getPrice());
+        existingProduct.setDescription(userProduct.getDescription());
+
+        if (userProduct.getImage() != null) {
+            existingProduct.setImage(userProduct.getImage());
+        }
+
+        // Se a categoria foi alterada
+        if (userProduct.getCategory() != null && userProduct.getCategory().getId() != null) {
+            ProductCategory newCategory = productCategoryRepository
+                    .findById(userProduct.getCategory().getId())
+                    .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+            existingProduct.setCategory(newCategory);
+        }
+
+        return productRepository.save(existingProduct);
     }
 
     @Override
-    public UserProduct delete(UserProduct userProduct) {
-        // TODO: Implementar exclusão
-        return null;
+    public void delete(Long productId, Long userId) {
+        // Busca o usuário
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        // Valida se é BUSINESS
+        if (user.getRole() != UserRole.BUSINESS) {
+            throw new IllegalArgumentException(
+                    "Apenas usuários do tipo BUSINESS (CNPJ) podem deletar produtos."
+            );
+        }
+
+        // Busca o produto
+        UserProduct product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        // Verifica se o produto pertence ao usuário
+        if (!product.getUser().getId().equals(userId)) {
+            throw new IllegalArgumentException(
+                    "Você não tem permissão para deletar este produto."
+            );
+        }
+
+        productRepository.delete(product);
     }
 
     @Override
-    public UserProduct findById(int id) {
-        // TODO: Implementar busca por ID
-        return null;
+    public UserProduct findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
     @Override
@@ -84,4 +144,7 @@ public class UserProductServiceImpl implements UserProductService {
                 .map(UserProductDTO::new)
                 .collect(Collectors.toList());
     }
-}
+    }
+
+
+

@@ -52,4 +52,46 @@ public class UserProductController {
         }
     }
 
+    @PutMapping("/products/{product_id}/user/{user_id}")
+    public ResponseEntity<?> updateProduct(
+            @PathVariable("product_id") Long product_id,
+            @PathVariable("user_id") Long user_id,
+            @RequestBody @Valid UserProduct userProduct) {
+
+        try {
+            UserProduct updatedProduct = userProductService.update(product_id, userProduct, user_id);
+            UserProductDTO productDTO = new UserProductDTO(updatedProduct);
+            return ResponseEntity.ok(productDTO);
+        } catch (IllegalArgumentException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+        } catch (RuntimeException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+
+    @DeleteMapping("/products/{product_id}/user/{user_id}")
+    public ResponseEntity<?> deleteProduct(
+            @PathVariable("product_id") Long product_id,
+            @PathVariable("user_id") Long user_id) {
+
+        try {
+            userProductService.delete(product_id, user_id);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Produto deletado com sucesso");
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+        } catch (RuntimeException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+
 }
