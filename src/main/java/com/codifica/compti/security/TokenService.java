@@ -18,7 +18,7 @@ import java.time.ZoneOffset;
  * de usuários e gerenciamento de tokens de redefinição de senha.
  *
  * @version 2.0
- * @since 2024
+ * @since 2025
  */
 @Service
 public class TokenService {

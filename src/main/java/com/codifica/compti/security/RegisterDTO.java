@@ -13,7 +13,7 @@ import com.codifica.compti.models.user.UserRole;
  * @param password a senha do usuário
  * @param role     o papel do usuário, representado por {@link UserRole}
  * @version 2.0
- * @since 2024
+ * @since 2025
  */
 public record RegisterDTO(String login, String password, UserRole role, String name, String whatsapp, String social_media_link,
                           String zip_code, String address_complement, String document,String photo) {

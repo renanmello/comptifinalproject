@@ -13,7 +13,7 @@ import java.util.Collection;
  * @param role  a coleção de roles (permissões) associadas ao usuário
  * @param id    o identificador único do usuário autenticado
  * @version 2.0
- * @since 2024
+ * @since 2025
  */
 public record LoginResponseDTO(String token, Collection role, Long id) {
 

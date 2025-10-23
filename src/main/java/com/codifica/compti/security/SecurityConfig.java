@@ -30,7 +30,7 @@ import java.util.Arrays;
  * </p>
  *
  * @version 2.0
- * @since 2024
+ * @since 2025
  */
 @Configuration
 @EnableWebSecurity
