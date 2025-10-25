@@ -1,10 +1,12 @@
 package com.codifica.compti.models.productcategory;
 
+
 import com.codifica.compti.models.userproduct.UserProduct;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+
 
 import java.util.List;
 
@@ -20,6 +22,6 @@ public class ProductCategory {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("category-products")
     private List<UserProduct> products;
 }
