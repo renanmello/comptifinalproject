@@ -1,10 +1,12 @@
 package com.codifica.compti.models.productcategory;
 
+
 import com.codifica.compti.models.userproduct.UserProduct;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+
 
 import java.util.List;
 

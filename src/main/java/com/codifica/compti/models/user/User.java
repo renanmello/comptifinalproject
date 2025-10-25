@@ -1,58 +1,52 @@
 package com.codifica.compti.models.user;
-
-import com.codifica.compti.models.negotiation.Negotiation;
-import com.codifica.compti.models.userproduct.UserProduct;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Date;
+
+
+
+import java.util.Collection;
 import java.util.List;
 
+
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-
+public class User implements UserDetails {
+    /**
+     * Identificador único do usuário.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Nome de login do usuário, pode ser tanto o cpf como email.
+     */
     private String email;
+    /**
+     * Senha do usuário, armazenada em formato criptografado.
+     */
+    private String password;
+
     private String name;
-    private String password; // Armazenada criptografada
+
+    /**
+     * Papel do usuário, que define suas permissões e acessos.
+     */
+    private UserRole role;
     private String whatsapp;
     private String socialMediaLink;
     private String zipCode;
     private String addressComplement;
-    private UserRole role; // Admin,Individual or Business
     private String document; // CPF ou CNPJ
-    private String photo; // Opcional
-
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastAccess;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<UserProduct> products;
-
-    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<Negotiation> negotiationsAsBuyer;
-
-    public User(String login, String password, UserRole role) {
-        this.email = login;
-        this.password = password;
-        this.role = role;
-    }
 
     public Long getId() {
         return id;
@@ -70,6 +64,10 @@ public class User {
         this.email = email;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }
@@ -78,12 +76,12 @@ public class User {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public UserRole getRole() {
+        return role;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public String getWhatsapp() {
@@ -118,14 +116,6 @@ public class User {
         this.addressComplement = addressComplement;
     }
 
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
     public String getDocument() {
         return document;
     }
@@ -142,35 +132,93 @@ public class User {
         this.photo = photo;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    private String photo; // Opcional
+
+    /**
+     * Construtor para criar um usuário com login, senha e papel.
+     *
+     * @param email    nome de login do usuário
+     * @param password senha do usuário
+     * @param role     papel atribuído ao usuário
+     */
+    public User(String email, String password, UserRole role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    /**
+     * Retorna as autoridades concedidas ao usuário com base em seu papel.
+     *
+     * @return uma coleção de {@link GrantedAuthority} representando as permissões do usuário
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
+                new SimpleGrantedAuthority("ROLE_INDIVIDUAL"),
+                new SimpleGrantedAuthority("ROLE_BUSINESS"));
+        if (this.role == UserRole.INDIVIDUAL) return List.of(new SimpleGrantedAuthority("ROLE_INDIVIDUAL"));
+        if (this.role == UserRole.BUSINESS) return List.of(new SimpleGrantedAuthority("ROLE_BUSINESS"));
+
+
+        return null;
     }
 
-    public Date getLastAccess() {
-        return lastAccess;
+    @Override
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setLastAccess(Date lastAccess) {
-        this.lastAccess = lastAccess;
+    /**
+     * Retorna o nome de login do usuário.
+     *
+     * @return o nome de login do usuário
+     */
+    @Override
+    public String getUsername() {
+        return email;
     }
 
-    public List<UserProduct> getProducts() {
-        return products;
+    /**
+     * Indica se a conta do usuário não expirou.
+     *
+     * @return {@code true} se a conta não expirou; caso contrário, {@code false}
+     */
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
     }
 
-    public void setProducts(List<UserProduct> products) {
-        this.products = products;
+    /**
+     * Indica se a conta do usuário não está bloqueada.
+     *
+     * @return {@code true} se a conta não está bloqueada; caso contrário, {@code false}
+     */
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
     }
 
-    public List<Negotiation> getNegotiationsAsBuyer() {
-        return negotiationsAsBuyer;
+    /**
+     * Indica se as credenciais do usuário (senha) não expiraram.
+     *
+     * @return {@code true} se as credenciais não expiraram; caso contrário, {@code false}
+     */
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
     }
 
-    public void setNegotiationsAsBuyer(List<Negotiation> negotiationsAsBuyer) {
-        this.negotiationsAsBuyer = negotiationsAsBuyer;
+    /**
+     * Indica se a conta do usuário está habilitada.
+     *
+     * @return {@code true} se a conta está habilitada; caso contrário, {@code false}
+     */
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
+
+
+
 }

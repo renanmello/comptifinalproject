@@ -1,7 +1,14 @@
-package com.codifica.compti.services;
+package com.codifica.compti.models.user;
 
-import com.codifica.compti.models.user.User;
-
+/**
+ * Serviço para operações relacionadas à entidade {@link User}.
+ * <p>
+ * Define métodos para criação, visualização e atualização de usuários no sistema.
+ * </p>
+ *
+ * @version 2.0
+ * @since 2024
+ */
 public interface UserService {
     /**
      * Cria um novo usuário no sistema.

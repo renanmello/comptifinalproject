@@ -1,7 +1,5 @@
 package com.codifica.compti.security;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +16,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
+/**
+ * Configura as definições de segurança para o sistema, incluindo controle de acesso,
+ * gerenciamento de sessão, configuração de CORS e codificação de senha.
+ * <p>
+ * A classe utiliza o filtro {@link SecurityFilter} para validação do token JWT e
+ * gerencia as permissões de acesso aos endpoints da API.
+ * </p>
+ *
+ * @version 2.0
+ * @since 2024
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -124,3 +135,5 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
+
