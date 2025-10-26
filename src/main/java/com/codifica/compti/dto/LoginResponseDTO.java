@@ -1,4 +1,4 @@
-package com.codifica.compti.security;
+package com.codifica.compti.dto;
 
 import java.util.Collection;
 

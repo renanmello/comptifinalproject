@@ -1,4 +1,4 @@
-package com.codifica.compti.security;
+package com.codifica.compti.dto;
 
 /**
  * Data Transfer Object (DTO) para representar as credenciais de autenticação de um usuário.

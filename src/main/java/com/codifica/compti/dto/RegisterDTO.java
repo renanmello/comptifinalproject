@@ -1,4 +1,4 @@
-package com.codifica.compti.security;
+package com.codifica.compti.dto;
 
 import com.codifica.compti.models.user.UserRole;
 

@@ -1,4 +1,4 @@
-package com.codifica.compti.security;
+package com.codifica.compti.services;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

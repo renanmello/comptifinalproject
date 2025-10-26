@@ -1,4 +1,4 @@
-package com.codifica.compti.security;
+package com.codifica.compti.services;
 
 import com.codifica.compti.models.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

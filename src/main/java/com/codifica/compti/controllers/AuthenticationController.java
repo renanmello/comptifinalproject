@@ -1,9 +1,15 @@
-package com.codifica.compti.security;
+package com.codifica.compti.controllers;
 
 
+import com.codifica.compti.dto.AuthenticationDTO;
+import com.codifica.compti.dto.LoginResponseDTO;
+import com.codifica.compti.dto.RegisterDTO;
+import com.codifica.compti.dto.RegisterResponseDTO;
 import com.codifica.compti.models.user.User;
 import com.codifica.compti.models.user.UserRepository;
 import com.codifica.compti.models.user.UserServiceImpl;
+import com.codifica.compti.services.TokenService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +51,7 @@ public class AuthenticationController {
      * @return uma resposta HTTP com o token JWT, as autoridades do usuário e seu ID se a autenticação for bem-sucedida
      */
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
+    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = authenticationManager.authenticate(usernamePassword);
         User user = (User) userRepository.findByEmail(data.login());
@@ -66,7 +72,7 @@ public class AuthenticationController {
      * @return uma resposta HTTP com o ID e o login do novo usuário, ou erro 400 se o login já existir
      */
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data) {
         if (this.userRepository.findByEmail(data.login()) != null) return ResponseEntity.badRequest().build();
         String crippass = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.login(), crippass, data.role());// Login já existe
