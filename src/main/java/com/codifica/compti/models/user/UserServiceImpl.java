@@ -5,6 +5,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.codifica.compti.dto.RegisterDTO;
+import com.codifica.compti.exceptions.UserAlreadyExistsException;
+
 import java.util.Optional;
 
 /**
@@ -33,10 +36,21 @@ public class UserServiceImpl implements UserService {
      * @return o objeto {@link User} recém-criado e salvo
      */
     @Override
-    public User create(User user) {
-        // Encrypt the user's password before saving
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    public User register(RegisterDTO registerDTO) {
+        if (userRepository.findByEmail(registerDTO.login()) != null) {
+            throw new UserAlreadyExistsException(registerDTO.login() + " Already exists");
+        }
+
+        User newUser = new User(registerDTO.login(), passwordEncoder.encode(registerDTO.password()), registerDTO.role());// Login já existe
+        newUser.setName(registerDTO.name());
+        newUser.setWhatsapp(registerDTO.whatsapp());
+        newUser.setDocument(registerDTO.document());
+        newUser.setZipCode(registerDTO.zip_code());
+        newUser.setAddressComplement(registerDTO.address_complement());
+        newUser.setPhoto(registerDTO.photo());
+        newUser.setSocialMediaLink(registerDTO.social_media_link());
+
+        return userRepository.save(newUser);
     }
 
     /**

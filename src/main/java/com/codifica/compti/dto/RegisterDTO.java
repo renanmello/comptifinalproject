@@ -19,24 +19,24 @@ import jakarta.validation.constraints.NotNull;
  * @since 2024
  */
 public record RegisterDTO(
-    @NotBlank(message = "login field is required") 
+    @NotBlank
     String login, 
-    @NotBlank(message = "password field is required")
+    @NotBlank
     String password, 
     @NotNull
     UserRole role, 
-    @NotBlank(message = "name field is required")
+    @NotBlank
     String name, 
-    @NotBlank(message = "whatsapp field is required")
+    @NotBlank
     String whatsapp,
-    @NotBlank(message = "social_media_link is required")
+    @NotBlank
     String social_media_link,
-    @NotBlank(message = "zip_code is required")
+    @NotBlank
     String zip_code,
-    @NotBlank(message = "address_complement is required") 
+    @NotBlank
     String address_complement, 
-    @NotBlank(message = "document is required")
+    @NotBlank
     String document,
-    @NotBlank(message = "photo is required")
+    @NotBlank
     String photo) {
 }

@@ -27,6 +27,18 @@ public class GlobalExceptionHandler {
                 ));
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleRuntimeException(RuntimeException ex, WebRequest request) {
+        Map<String, Object> error = Map.of(
+            "timestamp", LocalDateTime.now(),
+            "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            "error", "Runtime Exception",
+            "message", ex.getMessage(),
+            "path", request.getDescription(false).replace("uri=", "")
+        );
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationErrors(MethodArgumentNotValidException ex, WebRequest request) {
         var errors = ex.getBindingResult()

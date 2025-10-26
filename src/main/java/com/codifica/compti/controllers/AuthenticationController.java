@@ -1,7 +1,7 @@
 package com.codifica.compti.controllers;
 
 
-import com.codifica.compti.dto.AuthenticationDTO;
+import com.codifica.compti.dto.LoginRequestDTO;
 import com.codifica.compti.dto.LoginResponseDTO;
 import com.codifica.compti.dto.RegisterDTO;
 import com.codifica.compti.dto.RegisterResponseDTO;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -41,6 +40,7 @@ public class AuthenticationController {
 
     @Autowired
     private TokenService tokenService;
+    
     @Autowired
     private UserServiceImpl userServiceImpl;
 
@@ -51,13 +51,10 @@ public class AuthenticationController {
      * @return uma resposta HTTP com o token JWT, as autoridades do usuário e seu ID se a autenticação for bem-sucedida
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data) {
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = authenticationManager.authenticate(usernamePassword);
         User user = (User) userRepository.findByEmail(data.login());
-        //System.out.println(auth.getPrincipal());
-        //System.out.println(auth.getDetails());
-        //System.out.println(auth.isAuthenticated());
 
         // Gera um token JWT para o usuário autenticado
         var token = tokenService.generateToken((User) auth.getPrincipal());
@@ -73,18 +70,7 @@ public class AuthenticationController {
      */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data) {
-        if (this.userRepository.findByEmail(data.login()) != null) return ResponseEntity.badRequest().build();
-        String crippass = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), crippass, data.role());// Login já existe
-        newUser.setName(data.name());
-        newUser.setWhatsapp(data.whatsapp());
-        newUser.setDocument(data.document());
-        newUser.setZipCode(data.zip_code());
-        newUser.setAddressComplement(data.address_complement());
-        newUser.setPhoto(data.photo());
-        newUser.setSocialMediaLink(data.social_media_link());
-
-        this.userRepository.save(newUser);
+        User newUser = userServiceImpl.register(data);
         return ResponseEntity.ok(new RegisterResponseDTO(newUser.getId(), newUser.getEmail()));
     }
 

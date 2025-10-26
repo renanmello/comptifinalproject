@@ -1,7 +1,4 @@
 package com.codifica.compti.dto;
-
-import com.codifica.compti.models.user.User;
-
 /**
  * Data Transfer Object (DTO) para representar a resposta de registro de um usuário.
  * <p>

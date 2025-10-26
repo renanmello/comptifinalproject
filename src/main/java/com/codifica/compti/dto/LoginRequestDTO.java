@@ -11,5 +11,5 @@ package com.codifica.compti.dto;
  * @version 2.0
  * @since 2024
  */
-public record AuthenticationDTO(String login, String password) {
+public record LoginRequestDTO(String login, String password) {
 }

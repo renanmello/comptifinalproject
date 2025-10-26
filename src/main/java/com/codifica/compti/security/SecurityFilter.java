@@ -8,7 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.lang.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -40,33 +40,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     UserRepository userRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityFilter.class);
-    /*
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = recoverToken(request);
-
-        if (token != null) {
-            try {
-                String login = tokenService.validateToken(token); // Valida o token e obtém o login
-                if (login != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(login);
-
-                    if (userDetails != null) {
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                                userDetails, null, userDetails.getAuthorities());
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
-                    }
-                }
-            } catch (RuntimeException e) {
-                // Token inválido ou expirado, logue o erro se necessário e continue sem autenticar
-                System.out.println("Erro ao validar o token: " + e.getMessage());
-            }
-        }
-
-        filterChain.doFilter(request, response);
-    }
-
-     */
 
     /**
      * Intercepta cada requisição HTTP e aplica a lógica de autenticação.
@@ -82,7 +55,7 @@ public class SecurityFilter extends OncePerRequestFilter {
      * @throws IOException      em caso de erro de entrada/saída
      */
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         // Ignora requisições para os endpoints do Swagger UI e favicon
         String requestURI = request.getRequestURI();
@@ -125,16 +98,5 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
         return authHeader.substring(7); // Remove "Bearer " para obter o token puro
     }
-
-
-    //second way to recover token
-    /*
-    public String recoverToken(HttpServletRequest request) {
-        var authHeader = request.getHeader("Authorization");
-        if (authHeader == null) return null;
-        return authHeader.replace("Bearer ", "");
-    }
-     */
-
 }
 

@@ -1,5 +1,7 @@
 package com.codifica.compti.models.user;
 
+import com.codifica.compti.dto.RegisterDTO;
+
 /**
  * Serviço para operações relacionadas à entidade {@link User}.
  * <p>
@@ -16,7 +18,7 @@ public interface UserService {
      * @param user o objeto {@link User} contendo os dados do novo usuário
      * @return o objeto {@link User} recém-criado
      */
-    User create(User user);
+    User register(RegisterDTO registerDTO);
 
     /**
      * Recupera os dados de um usuário específico pelo ID.

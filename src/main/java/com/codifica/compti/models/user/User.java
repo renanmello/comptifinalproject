@@ -51,6 +51,7 @@ public class User implements UserDetails {
     private String zipCode;
     private String addressComplement;
     private String document; // CPF ou CNPJ
+    private String photo; // URL ou caminho da foto
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -147,7 +148,6 @@ public class User implements UserDetails {
 
 
 
-    private String photo; // Opcional
 
     /**
      * Construtor para criar um usuário com login, senha e papel.
