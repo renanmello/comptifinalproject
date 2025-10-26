@@ -88,13 +88,13 @@ public class AuthenticationController {
         return ResponseEntity.ok(new RegisterResponseDTO(newUser.getId(), newUser.getEmail()));
     }
 
-    @PutMapping("update/{user_id}")
+    @PutMapping("/update/{user_id}")
     public ResponseEntity<User> update(@RequestBody User user, @PathVariable("user_id") Long user_id) {
        User updatedUser = userServiceImpl.update(user, user_id);
         return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping("delete/{user_id}")
+    @DeleteMapping("/delete/{user_id}")
     public ResponseEntity<User> delete(@PathVariable("user_id") Long id) {
         userServiceImpl.delete(id);
         return ResponseEntity.ok().build();

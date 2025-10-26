@@ -87,7 +87,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         // Ignora requisições para os endpoints do Swagger UI e favicon
         String requestURI = request.getRequestURI();
         logger.info("Processando requisição URI: {}", requestURI);
-        if (requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/v3/api-docs") || requestURI.equals("/favicon.ico")) {
+        if (requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/v3/api-docs") || requestURI.equals("/favicon.ico") || requestURI.startsWith("/api/auth/register")) {
             logger.info("Ignorando autenticação para URI: {}", requestURI);
             filterChain.doFilter(request, response);
             return;
