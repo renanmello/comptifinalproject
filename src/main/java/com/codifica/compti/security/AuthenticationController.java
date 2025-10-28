@@ -77,6 +77,9 @@ public class AuthenticationController {
         newUser.setAddressComplement(data.address_complement());
         newUser.setPhoto(data.photo());
         newUser.setSocialMediaLink(data.social_media_link());
+        newUser.setCity(data.city());
+        newUser.setState(data.state());
+        newUser.setAddress(data.address());
 
         this.userRepository.save(newUser);
         return ResponseEntity.ok(new RegisterResponseDTO(newUser.getId(), newUser.getEmail()));

@@ -74,6 +74,9 @@ public class UserServiceImpl implements UserService {
         edit_user.setAddressComplement(user.getAddressComplement());
         edit_user.setPhoto(user.getPhoto());
         edit_user.setSocialMediaLink(user.getSocialMediaLink());
+        edit_user.setCity(user.getCity());
+        edit_user.setState(user.getState());
+        edit_user.setAddress(user.getAddress());
         return userRepository.save(edit_user);
         //dar upgrade em tudo menos no password
     }

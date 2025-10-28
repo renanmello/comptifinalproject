@@ -1,4 +1,5 @@
 package com.codifica.compti.models.user;
+
 import com.codifica.compti.models.favorite.Favorites;
 import com.codifica.compti.models.userproduct.UserProduct;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -6,12 +7,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-
 
 
 import java.util.Collection;
@@ -51,6 +49,34 @@ public class User implements UserDetails {
     private String zipCode;
     private String addressComplement;
     private String document; // CPF ou CNPJ
+    private String city;
+    private String state;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String address;
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -146,7 +172,6 @@ public class User implements UserDetails {
     }
 
 
-
     private String photo; // Opcional
 
     /**
@@ -233,7 +258,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
-
 
 
 }

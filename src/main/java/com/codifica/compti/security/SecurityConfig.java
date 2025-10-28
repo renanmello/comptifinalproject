@@ -67,7 +67,7 @@ public class SecurityConfig {
                             // Configura permissões específicas para endpoints da aplicação
                             .requestMatchers(HttpMethod.PUT, "/api/auth/update").hasAnyRole("INDIVIDUAL", "BUSINNES")
                             .requestMatchers(HttpMethod.DELETE, "/api/auth/delete").hasAnyRole("INDIVIDUAL", "BUSINNES")
-                            .requestMatchers(HttpMethod.GET, "/api/categories").hasAnyRole("INDIVIDUAL", "BUSINNES")
+                            .requestMatchers(HttpMethod.GET, "/api/categories/*").hasAnyRole("INDIVIDUAL", "BUSINNES")
                             .requestMatchers(HttpMethod.POST, "/api/products").hasAnyRole("INDIVIDUAL", "BUSINNES")
                             .requestMatchers(HttpMethod.POST, "/api/products/user/*").hasAnyRole("INDIVIDUAL", "BUSINNES")
                             .requestMatchers(HttpMethod.PUT, "/api/products/*").hasAnyRole( "BUSINNES")

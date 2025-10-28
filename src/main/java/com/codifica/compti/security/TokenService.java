@@ -33,7 +33,7 @@ public class TokenService {
      * @return o token JWT como uma string
      */
     public String generateToken(User user) {
-        return generateToken(user.getEmail(), 2); // Expira em 2 horas
+        return generateToken(user.getEmail(), 24); // Expira em 24 horas
     }
 
     /**
@@ -68,7 +68,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
-                    .withIssuer("libertapp")
+                    .withIssuer("compti")
                     .withSubject(subject)
                     .withExpiresAt(genExpirationDate(hoursToExpire))
                     .sign(algorithm);
@@ -101,7 +101,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                    .withIssuer("libertapp")
+                    .withIssuer("compti")
                     .build()
                     .verify(token)
                     .getSubject()
