@@ -1,7 +1,6 @@
 package com.codifica.compti.models.user;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.codifica.compti.dto.RegisterDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,15 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
-
-
     private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
-
 
     /**
      * Cria um novo usuário.
@@ -36,8 +31,19 @@ public class UserController {
      */
     @PostMapping
     public User create(@RequestBody User user) {
-        return userService.create(user);
-
+        RegisterDTO dto = new RegisterDTO(
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole(),
+                user.getName(),
+                user.getWhatsapp(),
+                user.getSocialMediaLink(),
+                user.getZipCode(),
+                user.getAddressComplement(),
+                user.getDocument(),
+                user.getPhoto()
+        );
+        return userService.register(dto);
     }
 
     /**
@@ -47,9 +53,8 @@ public class UserController {
      * @param userId o ID do usuário a ser atualizado
      * @return um {@link ResponseEntity} contendo o objeto {@link User} atualizado
      */
-    @PutMapping("update/{userId}")
+    @PutMapping("/update/{userId}")
     public ResponseEntity<User> update(@RequestBody User user, @PathVariable("userId") Long userId) {
         return ResponseEntity.ok(userService.update(user, userId));
-
     }
 }

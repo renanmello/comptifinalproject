@@ -2,8 +2,6 @@ package com.codifica.compti.dto;
 
 import java.util.Collection;
 
-import com.codifica.compti.models.user.UserRole;
-
 /**
  * Data Transfer Object (DTO) para representar a resposta de autenticação de login de um usuário.
  * <p>
@@ -17,6 +15,6 @@ import com.codifica.compti.models.user.UserRole;
  * @version 2.0
  * @since 2024
  */
-public record LoginResponseDTO(String token, Collection role, Long id) {
+public record LoginResponseDTO(String token, Collection<?> role, Long id) {
 
 }

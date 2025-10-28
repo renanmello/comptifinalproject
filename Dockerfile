@@ -8,6 +8,8 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:21-jre
 WORKDIR /backend
 
-COPY --from=build /backend/target/pontolocal-backend.jar app.jar
+EXPOSE 8080
+
+COPY --from=build /backend/target/*.jar app.jar
 CMD ["java", "-jar", "app.jar"]
 

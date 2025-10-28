@@ -55,7 +55,7 @@ public class SecurityFilter extends OncePerRequestFilter {
      * @throws IOException      em caso de erro de entrada/saída
      */
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         // Ignora requisições para os endpoints do Swagger UI e favicon
         String requestURI = request.getRequestURI();
