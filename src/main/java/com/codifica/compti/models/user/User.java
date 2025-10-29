@@ -2,6 +2,7 @@ package com.codifica.compti.models.user;
 
 import com.codifica.compti.models.favorite.Favorites;
 import com.codifica.compti.models.userproduct.UserProduct;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -80,11 +81,11 @@ public class User implements UserDetails {
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("user-favorites")
+    @JsonIgnore
     private List<Favorites> favorites;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("user-products")  // ✅ Mesmo nome usado em UserProduct
+    @JsonIgnore  // ✅ Mesmo nome usado em UserProduct
     private List<UserProduct> products;
 
     public Long getId() {
