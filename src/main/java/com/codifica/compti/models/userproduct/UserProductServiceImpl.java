@@ -52,11 +52,11 @@ public class UserProductServiceImpl implements UserProductService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         // Valida se é BUSINESS
-        if (user.getRole() != UserRole.BUSINESS) {
-            throw new IllegalArgumentException(
-                    "Apenas usuários do tipo BUSINESS (CNPJ) podem atualizar produtos."
-            );
-        }
+        //if (user.getRole() != UserRole.BUSINESS) {
+        //    throw new IllegalArgumentException(
+        //            "Apenas usuários do tipo BUSINESS (CNPJ) podem atualizar produtos."
+        //    );
+        //}
 
         // Busca o produto existente
         UserProduct existingProduct = productRepository.findById(productId)
@@ -97,11 +97,11 @@ public class UserProductServiceImpl implements UserProductService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         // Valida se é BUSINESS
-        if (user.getRole() != UserRole.BUSINESS) {
-            throw new IllegalArgumentException(
-                    "Apenas usuários do tipo BUSINESS (CNPJ) podem deletar produtos."
-            );
-        }
+        //if (user.getRole() != UserRole.BUSINESS) {
+        //    throw new IllegalArgumentException(
+        //            "Apenas usuários do tipo BUSINESS (CNPJ) podem deletar produtos."
+        //    );
+        //}
 
         // Busca o produto
         UserProduct product = productRepository.findById(productId)
@@ -134,11 +134,11 @@ public class UserProductServiceImpl implements UserProductService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         // Valida se é BUSINESS
-        if (user.getRole() != UserRole.BUSINESS) {
-            throw new IllegalArgumentException(
-                    "Usuários INDIVIDUAL (CPF) não possuem produtos."
-            );
-        }
+        //if (user.getRole() != UserRole.BUSINESS) {
+        //    throw new IllegalArgumentException(
+        //            "Usuários INDIVIDUAL (CPF) não possuem produtos."
+        //    );
+        //}
 
         return productRepository.findByUserId(userId).stream()
                 .map(UserProductDTO::new)
