@@ -73,6 +73,11 @@ public class SecurityConfig {
                             .requestMatchers(HttpMethod.POST, "/api/products/user/**").hasAnyRole("INDIVIDUAL", "BUSINESS")
                             .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAnyRole("INDIVIDUAL", "BUSINESS")
                             .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAnyRole("INDIVIDUAL", "BUSINESS")
+
+                            .requestMatchers(HttpMethod.POST, "/api/favorites/user/**").hasAnyRole("INDIVIDUAL", "BUSINESS")
+                            .requestMatchers(HttpMethod.DELETE, "/api/favorites/user/**").hasAnyRole("INDIVIDUAL", "BUSINESS")
+                            .requestMatchers(HttpMethod.GET, "/api/favorites/user/**").hasAnyRole("INDIVIDUAL", "BUSINESS")
+                            .requestMatchers(HttpMethod.PUT, "/api/favorites/user/**").hasAnyRole("INDIVIDUAL", "BUSINESS")
                             .anyRequest().authenticated();// Outros endpoints requerem autenticação
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
