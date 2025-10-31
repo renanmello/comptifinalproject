@@ -26,12 +26,12 @@ public class UserProductServiceImpl implements UserProductService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         // Validação: Apenas BUSINESS pode criar produtos
-        if (user.getRole() != UserRole.BUSINESS) {
-            throw new IllegalArgumentException(
-                    "Apenas usuários do tipo BUSINESS (CNPJ) podem criar produtos. " +
-                            "Usuários INDIVIDUAL (CPF) podem apenas favoritar produtos."
-            );
-        }
+        //if (user.getRole() != UserRole.BUSINESS) {
+        //    throw new IllegalArgumentException(
+        //            "Apenas usuários do tipo BUSINESS (CNPJ) podem criar produtos. " +
+        //                    "Usuários INDIVIDUAL (CPF) podem apenas favoritar produtos."
+        //    );
+        //}
 
         // Busca a categoria
         ProductCategory category = productCategoryRepository.findById(category_id)
